@@ -27,6 +27,7 @@ router.get('/', function(req, res, next) {
 		        }
 			}); 
 	res.render("index",{animes: collection1,mangas: collection2});
+	db.close();
 	});
 });
 
@@ -42,7 +43,7 @@ router.get('/editar/anime/:id',function(req, res, next){
 			res.render("editarAnime",{objeto: result});
 		});
 
-		
+		db.close();
 	});
 });
 
@@ -57,16 +58,63 @@ router.get('/editar/manga/:id',function(req, res, next){
 			res.render("editarManga",{objeto: result});
 		});
 
-		
+		db.close();
 	});
 });
 
-router.get('/editar/anime/editarNuevo',function(req,res,next){
-	console.log(req.body);
+router.post('/editar/anime/update',function(req,res,next){
+	var id = req.body['id'];
+
+	var myquery = { "_id": ObjectId(id)};
+
+
+	MongoClient.connect(url, function(err,db) {
+		var dbo = db.db("Animes");
+		db.collection("animes").find(myquery).toArray(function(err, result) {
+	 		var newTitulo = req.body['titulo'];
+	 		var newEstudio =req.body['estudio'];
+		    var newAño = req.body['año'];
+	     	var newvalues = { $set: {titulo: newTitulo,estudio: newEstudio, año: newAño} };
+			dbo.collection("animes").updateMany(myquery, newvalues, function(err,res){
+				if (err) throw err;
+				console.log("modificado!")
+				db.close();
+			
+			});
+			
+		});
+
+	});
+
+	res.redirect("/");
+
 });
 
-router.get('/update',function(req,res,next){
-	console.log(req.body);
+router.post('/editar/manga/update',function(req,res,next){
+	var id = req.body['id'];
+
+	var myquery = { "_id": ObjectId(id)};
+
+
+	MongoClient.connect(url, function(err,db) {
+		var dbo = db.db("Animes");
+		db.collection("mangas").find(myquery).toArray(function(err, result) {
+	 		var newTitulo = req.body['titulo'];
+	 		var newAutor =req.body['autor'];
+		    var newAño = req.body['año'];
+	     	var newvalues = { $set: {titulo: newTitulo, autor: newAutor, año: newAño} };
+			dbo.collection("mangas").updateMany(myquery, newvalues, function(err,res){
+				if (err) throw err;
+				console.log("modificado!")
+				db.close();
+			
+			});
+			
+		});
+
+	});
+
+	res.redirect("/");
 });
 
 module.exports = router;

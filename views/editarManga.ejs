@@ -9,16 +9,17 @@
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-4">
-				<form action="#" method="POST">
+				<form action="update" method="POST">
 					<% objeto.forEach(function(manga){ %>
+					<input name="id" value="<%= manga._id %>" hidden>
 					<label>Titulo:</label>
-					<input class="form-control" value="<%= manga.titulo %>">
+					<input class="form-control" name="titulo" value="<%= manga.titulo %>">
 					</br>
 					<label>Autor: </label>
-					<input class="form-control" value="<%= manga.autor %>">
+					<input class="form-control" name="autor" value="<%= manga.autor %>">
 					</br>
 					<label>Año: </label>
-					<input class="form-control" value="<%= manga.año %>">
+					<input class="form-control" name="año" value="<%= manga.año %>">
 					<% });%> 
 					</br>
 					<input style="margin-left: 8rem" class="btn btn-outline-success" type="submit" value="Modificar">

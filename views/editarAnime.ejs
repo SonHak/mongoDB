@@ -9,8 +9,9 @@
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-4">
-				<form action="editarNuevo" method="POST">
+				<form action="update" method="POST">
 					<% objeto.forEach(function(anime){ %>
+					<input name="id" value="<%= anime._id %>" hidden>
 					<label>Titulo:</label>
 					<input class="form-control" name="titulo" value="<%= anime.titulo %>">
 					</br>
