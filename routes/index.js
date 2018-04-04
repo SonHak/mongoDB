@@ -9,9 +9,27 @@ var collection2 = [];
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  	
+//redirige a la página de inicio
+router.get('/', function(req,res,next){
+	res.render("index");
+});
 
+
+//formulario crear nuevo Anime
+router.get('/crearAnime',function(req,res,next){
+	res.render("crearAnime");
+});
+
+
+//formulario crear nuevo Manga
+router.get('/crearManga',function(req,res,next){
+	res.render("crearManga");
+});
+
+
+//listar las arrays
+router.get('/listar', function(req, res, next) {
+  	
 	MongoClient.connect(url, function(err,db) {
 	  	console.log("Connected");
 
@@ -25,12 +43,16 @@ router.get('/', function(req, res, next) {
 				for (i=0; i<result.length; i++) {
 		            collection2[i] = result[i];
 		        }
-			}); 
-	res.render("index",{animes: collection1,mangas: collection2});
+		}); 
+
+	res.render("listar",{animes: collection1,mangas: collection2});
 	db.close();
+
 	});
 });
 
+
+//formulario editar para la colecion Anime
 router.get('/editar/anime/:id',function(req, res, next){
 
 	MongoClient.connect(url, function(err,db) {
@@ -47,6 +69,8 @@ router.get('/editar/anime/:id',function(req, res, next){
 	});
 });
 
+
+//formulario editar para la colecion Manga
 router.get('/editar/manga/:id',function(req, res, next){
 
 	MongoClient.connect(url, function(err,db) {
@@ -62,6 +86,8 @@ router.get('/editar/manga/:id',function(req, res, next){
 	});
 });
 
+
+//update para ANIME
 router.post('/editar/anime/update',function(req,res,next){
 	var id = req.body['id'];
 
@@ -86,10 +112,13 @@ router.post('/editar/anime/update',function(req,res,next){
 
 	});
 
+	collection1 = [];
+	collection2 = [];
 	res.redirect("/");
 
 });
 
+//update para MANGA
 router.post('/editar/manga/update',function(req,res,next){
 	var id = req.body['id'];
 
@@ -107,14 +136,59 @@ router.post('/editar/manga/update',function(req,res,next){
 				if (err) throw err;
 				console.log("modificado!")
 				db.close();
-			
+				
 			});
 			
 		});
 
 	});
 
+	collection1 = [];
+	collection2 = [];
 	res.redirect("/");
 });
+
+
+// eliminar para ANIME
+router.get('/eliminar/anime/:id',function(req,res,next){
+	MongoClient.connect(url, function(err,db) {
+		var objId = new ObjectId(req.params.id);
+		var query = { "_id": objId};
+		var dbo = db.db("Animes");
+
+
+		dbo.collection("animes").deleteOne(query, function(err, obj) {
+	    if (err) throw err;
+	    console.log("1 document deleted");
+
+	    res.redirect("/");
+	    db.close();
+		});
+	});
+	collection1 = [];
+	collection2 = [];
+});
+
+// eliminar para MANGA
+router.get('/eliminar/manga/:id',function(req,res,next){
+	MongoClient.connect(url, function(err,db) {
+		var objId = new ObjectId(req.params.id);
+		var query = { "_id": objId};
+		var dbo = db.db("Animes");
+
+
+		dbo.collection("mangas").deleteOne(query, function(err, obj) {
+	    if (err) throw err;
+	    console.log("1 document deleted");
+
+	    res.redirect("/");
+	    db.close();
+		});
+	});
+
+	collection1 = [];
+	collection2 = [];
+});
+
 
 module.exports = router;

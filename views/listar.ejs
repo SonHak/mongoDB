@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+	<table class="table table-bordered  animes">
+		<h3>ANIMES</h3>
+		<thead class="thead-dark">
+			<th scope="col">TITULO</th>
+			<th scope="col">ESTUDIO</th>
+			<th scope="col">AÑO</th>
+			<tr></tr>
+		</thead>
+		<% for(var i=0; i<animes.length; i++) {%>
+		<td><span><%= animes[i].titulo %></span></td>
+		<td><span><%= animes[i].estudio %></span></td>
+		<td><span><%= animes[i].año %></span></td>
+		<form action="/editar/anime/<%= animes[i]._id %>" method="get">
+			<td><input class="btn btn-outline-info" type="submit" value="EDITAR"></td>
+		</form>
+	
+			<form action="/eliminar/anime/<%= animes[i]._id %>" method="get">
+				<td><input class="btn btn-outline-info" type="submit" value="BORRAR"></td>
+			</form>
+		
+		<tr></tr>
+		<% } %>
+	</table>
+
+
+	<table class="table table-bordered  mangas">
+		<h3>MANGAS</h3>
+		<thead class="thead-dark">
+			<th scope="col">TITULO</th>
+			<th scope="col">AUTOR</th>
+			<th scope="col">AÑO</th>
+			<tr></tr>
+		</thead>
+		<% for(var i=0; i<mangas.length; i++) {%>
+		<td><span><%= mangas[i].titulo %></span></td>
+		<td><span><%= mangas[i].autor %></span></td>
+		<td><span><%= mangas[i].año %></span></td>
+		<form action="/editar/manga/<%= mangas[i]._id %>" method="get">
+			<td><input class="btn btn-outline-info" type="submit" value="EDITAR"></td>
+		</form>
+	
+			<form action="/eliminar/manga/<%= mangas[i]._id %>" method="get">
+				<td><input class="btn btn-outline-info" type="submit" value="BORRAR"></td>
+			</form>
+		
+		<tr></tr>
+		<% } %>
+	</table>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
