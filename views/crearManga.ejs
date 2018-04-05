@@ -6,11 +6,31 @@
 
 </head>
 <body>
+	<nav class="navbar navbar-dark bg-dark navbar-expand-lg ">
+		  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Menu
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          <a class="dropdown-item" href="/">Página principal</a>
+		          <a class="dropdown-item" href="/crearAnime">Crear Anime</a>
+		          <a class="dropdown-item" href="/crearManga">Crear Manga</a>
+		          <a class="dropdown-item" href="/listar">Listado de datos</a>
+		        </div>
+		      </li>
+		    </ul>
+		    <span class="navbar-text">
+		      CREAR MANGA
+		    </span>
+		  </div>
+		</nav>
 	<div class="container">
 		<div class="row">
 			<div class="col-4"></div>
 			<div class="col-4">
-			<form action="update" method="POST">
+			<form action="mangaNuevo" method="POST">
 			
 				<label>Titulo:</label>
 				<input class="form-control" name="titulo">
@@ -19,7 +39,7 @@
 				<input class="form-control" name="autor">
 				</br>
 				<label>Año: </label>
-				<input class="form-control" name="año">
+				<input class="form-control" type="date" placeholder="YYYY-MM-DD" name="año">
 
 				</br>
 				<input style="margin-left: 8rem" class="btn btn-outline-success" type="submit" value="Modificar">

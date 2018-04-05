@@ -20,10 +20,57 @@ router.get('/crearAnime',function(req,res,next){
 	res.render("crearAnime");
 });
 
+//funcion INSERT ANIME
+router.post('/animeNuevo', function(req,res,next){
+	var nwtitulo = req.body['titulo'];
+	var nwestudio = req.body['estudio'];
+	var nwaño = req.body['año'];
+
+	MongoClient.connect(url, function(err,db) {
+		var dbo = db.db("Animes");
+		var myobj = { titulo: nwtitulo , estudio: nwestudio, año: nwaño};
+
+		dbo.collection("animes").insertOne(myobj , function(err, res){
+			if (err) throw err;
+			console.log("1 document inserted");
+			db.close();
+			
+		});
+	});
+
+	res.render("index");
+
+});
+
 
 //formulario crear nuevo Manga
 router.get('/crearManga',function(req,res,next){
 	res.render("crearManga");
+});
+
+
+//funcion INSERT MANGA
+router.post('/mangaNuevo', function(req,res,next){
+	var nwtitulo = req.body['titulo'];
+	var nwautor = req.body['autor'];
+	var nwaño = req.body['año'];
+
+	MongoClient.connect(url, function(err,db) {
+
+		var dbo = db.db("Animes");
+		var myobj = { titulo: nwtitulo , autor: nwautor, año: nwaño};
+
+		dbo.collection("mangas").insertOne(myobj , function(err, res){
+			if (err) throw err;
+			console.log("1 document inserted");
+			db.close();
+			
+		});
+	});
+
+
+	res.render("index");
+
 });
 
 
